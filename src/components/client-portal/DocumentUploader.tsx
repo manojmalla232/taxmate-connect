@@ -126,32 +126,32 @@ const DocumentUploader: React.FC = () => {
   
   return (
     <div className="bg-white rounded-xl shadow-card">
-      <div className="p-6 border-b border-gray-200">
-        <h2 className="text-xl font-semibold text-gray-900">Upload Documents</h2>
-        <p className="text-gray-600 mt-1">
+      <div className="p-4 sm:p-6 border-b border-gray-200">
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Upload Documents</h2>
+        <p className="text-sm sm:text-base text-gray-600 mt-1">
           Upload your supporting documents for your tax return.
         </p>
       </div>
       
-      <div className="p-6">
+      <div className="p-4 sm:p-6">
         {/* Document requirements */}
-        <div className="bg-blue-light p-4 rounded-lg mb-6">
-          <h3 className="text-sm font-medium text-blue-accent mb-2">Required Documents</h3>
-          <ul className="text-sm text-gray-700 space-y-1">
-            <li className="flex items-center">
-              <FileText size={14} className="text-blue-accent mr-2" />
+        <div className="bg-blue-light p-3 sm:p-4 rounded-lg mb-4 sm:mb-6">
+          <h3 className="text-xs sm:text-sm font-medium text-blue-accent mb-2">Required Documents</h3>
+          <ul className="text-xs sm:text-sm text-gray-700 space-y-1">
+            <li className="flex items-start sm:items-center">
+              <FileText size={12} className="text-blue-accent mr-2 mt-0.5 sm:mt-0 flex-shrink-0" />
               <span>Payment summary or income statement from each employer</span>
             </li>
-            <li className="flex items-center">
-              <FileText size={14} className="text-blue-accent mr-2" />
+            <li className="flex items-start sm:items-center">
+              <FileText size={12} className="text-blue-accent mr-2 mt-0.5 sm:mt-0 flex-shrink-0" />
               <span>Bank statements showing interest earned</span>
             </li>
-            <li className="flex items-center">
-              <FileText size={14} className="text-blue-accent mr-2" />
+            <li className="flex items-start sm:items-center">
+              <FileText size={12} className="text-blue-accent mr-2 mt-0.5 sm:mt-0 flex-shrink-0" />
               <span>Receipts for any work-related expenses or deductions</span>
             </li>
-            <li className="flex items-center">
-              <FileText size={14} className="text-blue-accent mr-2" />
+            <li className="flex items-start sm:items-center">
+              <FileText size={12} className="text-blue-accent mr-2 mt-0.5 sm:mt-0 flex-shrink-0" />
               <span>Medicare levy exemption certificate (if applicable)</span>
             </li>
           </ul>
@@ -214,91 +214,39 @@ const DocumentUploader: React.FC = () => {
         )}
         
         {/* Document list */}
-        <div>
-          <h3 className="text-lg font-medium text-gray-900 mb-3">Your Documents</h3>
+        <div className="space-y-3">
+          <h3 className="text-sm font-medium text-gray-700">Uploaded Documents</h3>
           
-          {documents.length > 0 ? (
-            <div className="border rounded-lg overflow-hidden">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Name
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Size
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Uploaded On
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Status
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {documents.map((doc) => (
-                    <tr key={doc.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <div className="flex-shrink-0 h-8 w-8 bg-gray-100 rounded-md flex items-center justify-center">
-                            <File size={16} className="text-gray-500" />
-                          </div>
-                          <div className="ml-3">
-                            <div className="text-sm font-medium text-gray-900">{doc.name}</div>
-                            <div className="text-xs text-gray-500">{doc.type.toUpperCase()}</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {doc.size}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {doc.uploadDate}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center">
-                          {getStatusIcon(doc.status)}
-                          <span className="ml-1.5 text-sm text-gray-700">
-                            {getStatusText(doc.status)}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <div className="flex justify-end space-x-1">
-                          <Button 
-                            variant="ghost" 
-                            size="sm" 
-                            className="text-gray-500 hover:text-gray-700"
-                            onClick={() => handlePreviewDocument(doc)}
-                            title="Preview document"
-                          >
-                            <Eye size={16} />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-red-500 hover:text-red-700"
-                            onClick={() => handleDelete(doc.id)}
-                            title="Remove document"
-                          >
-                            <X size={16} />
-                          </Button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+          {documents.map((doc) => (
+            <div 
+              key={doc.id}
+              className="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200"
+            >
+              <div className="flex items-center space-x-3">
+                <div className="p-2 bg-white rounded-md border border-gray-200">
+                  <File size={20} className="text-blue-accent" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h4 className="text-sm font-medium text-gray-800 truncate">{doc.name}</h4>
+                  <div className="flex items-center mt-1 flex-wrap">
+                    <span className="text-xs text-gray-500 mr-3">{doc.size}</span>
+                    <span className="flex items-center text-xs">
+                      {getStatusIcon(doc.status)}
+                      <span className="ml-1 text-gray-600">{getStatusText(doc.status)}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              
+              <button
+                onClick={() => handleDelete(doc.id)}
+                className="p-1.5 text-gray-400 hover:text-red-500 rounded-md hover:bg-gray-100 transition-colors mt-2 sm:mt-0 self-end sm:self-center"
+                aria-label="Delete document"
+              >
+                <X size={16} />
+              </button>
             </div>
-          ) : (
-            <div className="text-center py-8 text-gray-500">
-              No documents uploaded yet
-            </div>
-          )}
+          ))}
         </div>
       </div>
     </div>

@@ -67,10 +67,10 @@ const ClientTaxForm: React.FC = () => {
   return (
     <div className="bg-white rounded-xl shadow-card">
       {/* Progress indicator */}
-      <div className="border-b border-gray-200 p-6">
-        <div className="flex justify-between items-center mb-2">
-          <h2 className="text-xl font-semibold text-gray-900">2023-2024 Tax Return</h2>
-          <Button variant="outline" size="sm" onClick={handleSave} disabled={isSaving}>
+      <div className="border-b border-gray-200 p-4 sm:p-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 mb-2">
+          <h2 className="text-lg sm:text-xl font-semibold text-gray-900">2023-2024 Tax Return</h2>
+          <Button variant="outline" size="sm" className="w-full sm:w-auto" onClick={handleSave} disabled={isSaving}>
             <Save size={16} className="mr-1.5" />
             <span>{isSaving ? 'Saving...' : 'Save Progress'}</span>
           </Button>
@@ -84,16 +84,20 @@ const ClientTaxForm: React.FC = () => {
               style={{ width: `${100 / totalSteps}%` }}
             >
               <div 
-                className={`w-8 h-8 rounded-full flex items-center justify-center mb-1 ${
+                className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center mb-1 ${
                   i + 1 === step ? 'bg-blue-accent text-white' : 
                   i + 1 < step ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-400'
                 }`}
               >
-                {i + 1 < step ? <CheckCircle size={16} /> : i + 1}
+                {i + 1 < step ? <CheckCircle size={14} className="sm:text-base" /> : i + 1}
               </div>
-              <div className="text-xs text-center">
+              <div className="text-xs text-center hidden sm:block">
                 {i === 0 ? 'Income Details' : 
                  i === 1 ? 'Deductions' : 'Review & Submit'}
+              </div>
+              <div className="text-xs text-center sm:hidden">
+                {i === 0 ? 'Income' : 
+                 i === 1 ? 'Deduct' : 'Review'}
               </div>
             </div>
           ))}

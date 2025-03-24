@@ -88,22 +88,22 @@ const DocumentPreview: React.FC<DocumentPreviewProps> = ({ document, onClose }) 
 
   return (
     <motion.div 
-      className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-2 sm:p-4"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
       <div className="relative w-full max-w-4xl">
         {/* Header */}
-        <div className="bg-white rounded-t-lg p-4 flex items-center justify-between">
-          <h3 className="font-medium truncate">{document.name}</h3>
-          <div className="flex items-center space-x-2">
-            <Button variant="ghost" size="sm" onClick={() => window.open('#', '_blank')}>
-              <Download size={18} className="mr-1" />
-              <span>Download</span>
+        <div className="bg-white rounded-t-lg p-3 sm:p-4 flex items-center justify-between">
+          <h3 className="font-medium truncate text-sm sm:text-base">{document.name}</h3>
+          <div className="flex items-center space-x-1 sm:space-x-2">
+            <Button variant="ghost" size="sm" className="h-8 px-2 sm:h-9 sm:px-3" onClick={() => window.open('#', '_blank')}>
+              <Download size={16} className="sm:size-[18px] mr-1" />
+              <span className="text-xs sm:text-sm">Download</span>
             </Button>
-            <Button variant="ghost" size="icon" onClick={onClose}>
-              <X size={18} />
+            <Button variant="ghost" size="icon" className="h-8 w-8 sm:h-9 sm:w-9" onClick={onClose}>
+              <X size={16} className="sm:size-[18px]" />
             </Button>
           </div>
         </div>
@@ -114,48 +114,57 @@ const DocumentPreview: React.FC<DocumentPreviewProps> = ({ document, onClose }) 
         </div>
         
         {/* Controls */}
-        <div className="bg-white rounded-b-lg p-4 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
+        <div className="bg-white rounded-b-lg p-3 sm:p-4 flex flex-wrap sm:flex-nowrap items-center justify-between gap-2">
+          <div className="flex items-center space-x-1 sm:space-x-2">
             <Button 
               variant="outline" 
               size="icon" 
+              className="h-7 w-7 sm:h-9 sm:w-9"
               onClick={handleZoomOut}
               disabled={zoom <= 0.5}
             >
-              <ZoomOut size={18} />
+              <ZoomOut size={14} className="sm:size-[18px]" />
             </Button>
-            <span className="text-sm">{Math.round(zoom * 100)}%</span>
+            <span className="text-xs sm:text-sm">{Math.round(zoom * 100)}%</span>
             <Button 
               variant="outline" 
               size="icon" 
+              className="h-7 w-7 sm:h-9 sm:w-9"
               onClick={handleZoomIn}
               disabled={zoom >= 3}
             >
-              <ZoomIn size={18} />
+              <ZoomIn size={14} className="sm:size-[18px]" />
             </Button>
-            <Button variant="outline" size="icon" onClick={handleRotate}>
-              <RotateCw size={18} />
+            <Button 
+              variant="outline" 
+              size="icon" 
+              className="h-7 w-7 sm:h-9 sm:w-9"
+              onClick={handleRotate}
+            >
+              <RotateCw size={14} className="sm:size-[18px]" />
             </Button>
           </div>
           
           {totalPages > 1 && (
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-1 sm:space-x-2">
               <Button 
                 variant="outline" 
                 size="icon" 
+                className="h-7 w-7 sm:h-9 sm:w-9"
                 onClick={handlePrevPage}
                 disabled={currentPage === 1}
               >
-                <ChevronLeft size={18} />
+                <ChevronLeft size={14} className="sm:size-[18px]" />
               </Button>
-              <span className="text-sm">{currentPage} / {totalPages}</span>
+              <span className="text-xs sm:text-sm">{currentPage} / {totalPages}</span>
               <Button 
                 variant="outline" 
                 size="icon" 
+                className="h-7 w-7 sm:h-9 sm:w-9"
                 onClick={handleNextPage}
                 disabled={currentPage === totalPages}
               >
-                <ChevronRight size={18} />
+                <ChevronRight size={14} className="sm:size-[18px]" />
               </Button>
             </div>
           )}

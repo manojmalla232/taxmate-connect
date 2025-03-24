@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
@@ -14,6 +14,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import AnimatedLogo from '../ui/AnimatedLogo';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface SidebarProps {
   className?: string;
@@ -22,6 +23,7 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const location = useLocation();
+  const isMobile = useIsMobile();
   
   const menuItems = [
     { icon: Home, label: 'Dashboard', path: '/dashboard' },
@@ -45,6 +47,31 @@ const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
     setIsCollapsed(!isCollapsed);
   };
 
+  // Mobile bottom navigation bar
+  if (isMobile) {
+    return (
+      <div className={`fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-30 ${className}`}>
+        <div className="flex justify-around items-center h-16">
+          {menuItems.map((item) => (
+            <Link
+              key={item.path}
+              to={item.path}
+              className={`flex flex-col items-center justify-center py-2 px-3 ${
+                isActive(item.path)
+                  ? 'text-blue-accent'
+                  : 'text-gray-600 hover:text-blue-accent'
+              }`}
+            >
+              <item.icon size={20} />
+              <span className="text-xs mt-1">{item.label}</span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    );
+  }
+  
+  // Desktop sidebar
   return (
     <motion.aside
       initial="expanded"

@@ -96,15 +96,15 @@ const MessageCenter: React.FC = () => {
 
   return (
     <div className="bg-white rounded-xl shadow-card flex flex-col h-[600px]">
-      <div className="p-6 border-b border-gray-200">
+      <div className="p-4 sm:p-6 border-b border-gray-200">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
-            <div className="h-10 w-10 rounded-full bg-blue-light text-blue-accent flex items-center justify-center mr-3">
-              <User size={20} />
+            <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-blue-light text-blue-accent flex items-center justify-center mr-2 sm:mr-3">
+              <User size={16} className="sm:size-[20px]" />
             </div>
             <div>
-              <h2 className="text-lg font-semibold text-gray-900">Michael Chen</h2>
-              <p className="text-sm text-gray-500">Your Tax Agent</p>
+              <h2 className="text-base sm:text-lg font-semibold text-gray-900">Michael Chen</h2>
+              <p className="text-xs sm:text-sm text-gray-500">Your Tax Agent</p>
             </div>
           </div>
           
@@ -112,12 +112,12 @@ const MessageCenter: React.FC = () => {
             {isConnected ? (
               <div className="flex items-center text-green-500 text-xs">
                 <Wifi size={14} className="mr-1" />
-                <span>Connected</span>
+                <span className="hidden xs:inline">Connected</span>
               </div>
             ) : (
               <div className="flex items-center text-red-500 text-xs">
                 <WifiOff size={14} className="mr-1" />
-                <span>Disconnected</span>
+                <span className="hidden xs:inline">Disconnected</span>
               </div>
             )}
           </div>

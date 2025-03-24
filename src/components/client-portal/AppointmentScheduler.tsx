@@ -119,9 +119,9 @@ const AppointmentScheduler: React.FC = () => {
   
   return (
     <div className="bg-white rounded-xl shadow-card">
-      <div className="p-6 border-b border-gray-200">
-        <h2 className="text-xl font-semibold text-gray-900">Schedule an Appointment</h2>
-        <p className="text-gray-600 mt-1">Book a consultation with your tax agent</p>
+      <div className="p-4 sm:p-6 border-b border-gray-200">
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Schedule an Appointment</h2>
+        <p className="text-sm sm:text-base text-gray-600 mt-1">Book a consultation with your tax agent</p>
       </div>
       
       <div className="p-6">
@@ -160,7 +160,7 @@ const AppointmentScheduler: React.FC = () => {
                 transition={{ duration: 0.3 }}
               >
                 <label className="block text-sm font-medium text-gray-700 mb-2">Select Time</label>
-                <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                <div className="grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-1 sm:gap-2">
                   {timeSlots.map((slot) => (
                     <Button
                       key={slot.id}

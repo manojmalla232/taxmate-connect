@@ -193,9 +193,9 @@ const PaymentIntegration: React.FC = () => {
 
   return (
     <div className="bg-white rounded-xl shadow-card">
-      <div className="p-6 border-b border-gray-200">
-        <h2 className="text-xl font-semibold text-gray-900">Payments & Invoices</h2>
-        <p className="text-gray-600 mt-1">Manage your payments and view invoices</p>
+      <div className="p-4 sm:p-6 border-b border-gray-200">
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Payments & Invoices</h2>
+        <p className="text-sm sm:text-base text-gray-600 mt-1">Manage your payments and view invoices</p>
       </div>
       
       <div className="p-6">

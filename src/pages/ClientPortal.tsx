@@ -54,14 +54,14 @@ const ClientPortal: React.FC = () => {
         <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-2 sm:space-x-3">
                 <AnimatedLogo size="sm" />
-                <span className="font-semibold text-lg">TaxMate Client Portal</span>
+                <span className="font-semibold text-base sm:text-lg truncate max-w-[120px] sm:max-w-none">TaxMate Portal</span>
               </div>
               
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2 sm:space-x-4">
                 <NotificationCenter />
-                <div className="text-sm text-right">
+                <div className="text-sm text-right hidden sm:block">
                   <div className="text-gray-900 font-medium">{clientData.name}</div>
                   <div className="text-gray-500">{clientData.visaType}</div>
                 </div>
@@ -73,6 +73,7 @@ const ClientPortal: React.FC = () => {
                   size="icon"
                   onClick={handleLogout}
                   aria-label="Log out"
+                  className="hidden sm:flex"
                 >
                   <LogOut size={18} />
                 </Button>
@@ -114,7 +115,7 @@ const ClientPortal: React.FC = () => {
           </motion.div>
           
           {/* Tax return progress */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
             <motion.div 
               className="md:col-span-3 bg-white rounded-xl shadow-card p-6"
               initial={{ opacity: 0, y: 10 }}
@@ -226,16 +227,18 @@ const ClientPortal: React.FC = () => {
           
           {/* Main tabs */}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid grid-cols-6 mb-6">
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="tax-form">Tax Return</TabsTrigger>
-              <TabsTrigger value="documents">Documents</TabsTrigger>
-              <TabsTrigger value="messages">Messages</TabsTrigger>
-              <TabsTrigger value="visa-info">Visa Info</TabsTrigger>
-              <TabsTrigger value="appointments">Appointments</TabsTrigger>
-              <TabsTrigger value="payments">Payments</TabsTrigger>
-              <TabsTrigger value="profile-settings">Profile</TabsTrigger>
-            </TabsList>
+            <div className="overflow-x-auto pb-2 mb-2">
+              <TabsList className="inline-flex min-w-full md:grid md:grid-cols-8 mb-4">
+                <TabsTrigger value="overview">Overview</TabsTrigger>
+                <TabsTrigger value="tax-form">Tax Return</TabsTrigger>
+                <TabsTrigger value="documents">Documents</TabsTrigger>
+                <TabsTrigger value="messages">Messages</TabsTrigger>
+                <TabsTrigger value="visa-info">Visa Info</TabsTrigger>
+                <TabsTrigger value="appointments">Appointments</TabsTrigger>
+                <TabsTrigger value="payments">Payments</TabsTrigger>
+                <TabsTrigger value="profile-settings">Profile</TabsTrigger>
+              </TabsList>
+            </div>
             
             <TabsContent value="overview" className="bg-white rounded-xl shadow-card p-6">
               <h2 className="text-xl font-semibold text-gray-900 mb-4">Summary</h2>
