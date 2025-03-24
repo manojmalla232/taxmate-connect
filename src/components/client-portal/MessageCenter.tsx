@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Send, PaperclipIcon, User, Download, Wifi, WifiOff } from 'lucide-react';
+import { Send, Paperclip, User, Download, Wifi, WifiOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
@@ -97,10 +97,11 @@ const MessageCenter: React.FC = () => {
   return (
     <div className="bg-white rounded-xl shadow-card flex flex-col h-[600px]">
       <div className="p-6 border-b border-gray-200">
-        <div className="flex items-center">
-          <div className="h-10 w-10 rounded-full bg-blue-light text-blue-accent flex items-center justify-center mr-3">
-            <User size={20} />
-          </div>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <div className="h-10 w-10 rounded-full bg-blue-light text-blue-accent flex items-center justify-center mr-3">
+              <User size={20} />
+            </div>
             <div>
               <h2 className="text-lg font-semibold text-gray-900">Michael Chen</h2>
               <p className="text-sm text-gray-500">Your Tax Agent</p>
@@ -145,7 +146,7 @@ const MessageCenter: React.FC = () => {
                 <div className={`mt-3 p-2 rounded flex items-center text-xs ${
                   message.sender === 'client' ? 'bg-blue-600' : 'bg-gray-200'
                 }`}>
-                  <PaperclipIcon size={14} className="mr-2" />
+                  <Paperclip size={14} className="mr-2" />
                   <div className="flex-1">
                     <div className={message.sender === 'client' ? 'text-white' : 'text-gray-800'}>
                       {message.attachment.name}
@@ -182,7 +183,7 @@ const MessageCenter: React.FC = () => {
             onClick={handleFileUpload}
             aria-label="Attach file"
           >
-            <PaperclipIcon size={18} />
+            <Paperclip size={18} />
           </Button>
           
           <Textarea

@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FileText, Upload, MessageSquare, Calendar, LogOut, User, AlertCircle, Settings } from 'lucide-react';
+import { FileText, Upload, MessageSquare, Calendar, LogOut, User, AlertCircle, Settings, CreditCard } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
