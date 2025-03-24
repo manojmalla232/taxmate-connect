@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Send, PaperclipIcon, User, Download } from 'lucide-react';
+import { Send, PaperclipIcon, User, Download, Wifi, WifiOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
@@ -18,6 +18,7 @@ type Message = {
 };
 
 const MessageCenter: React.FC = () => {
+  const [isConnected, setIsConnected] = useState(true); // Added connection state
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
