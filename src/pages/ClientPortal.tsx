@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FileText, Upload, MessageSquare, Calendar, LogOut, User, AlertCircle } from 'lucide-react';
+import { FileText, Upload, MessageSquare, Calendar, LogOut, User, AlertCircle, Settings } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -12,6 +12,10 @@ import ClientTaxForm from '@/components/client-portal/ClientTaxForm';
 import DocumentUploader from '@/components/client-portal/DocumentUploader';
 import MessageCenter from '@/components/client-portal/MessageCenter';
 import VisaInfo from '@/components/client-portal/VisaInfo';
+import ProfileSettings from '@/components/client-portal/ProfileSettings';
+import NotificationCenter from '@/components/client-portal/NotificationCenter';
+import AppointmentScheduler from '@/components/client-portal/AppointmentScheduler';
+import PaymentIntegration from '@/components/client-portal/PaymentIntegration';
 
 // Sample client data
 const clientData = {
@@ -56,6 +60,7 @@ const ClientPortal: React.FC = () => {
               </div>
               
               <div className="flex items-center space-x-4">
+                <NotificationCenter />
                 <div className="text-sm text-right">
                   <div className="text-gray-900 font-medium">{clientData.name}</div>
                   <div className="text-gray-500">{clientData.visaType}</div>
@@ -191,18 +196,45 @@ const ClientPortal: React.FC = () => {
                   <FileText size={16} className="mr-1.5" />
                   <span>Visa Tax Information</span>
                 </Button>
+                <Button 
+                  variant="outline" 
+                  className="w-full justify-start"
+                  onClick={() => setActiveTab('appointments')}
+                >
+                  <Calendar size={16} className="mr-1.5" />
+                  <span>Schedule Appointment</span>
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="w-full justify-start"
+                  onClick={() => setActiveTab('payments')}
+                >
+                  <CreditCard size={16} className="mr-1.5" />
+                  <span>Payments & Invoices</span>
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="w-full justify-start"
+                  onClick={() => setActiveTab('profile-settings')}
+                >
+                  <Settings size={16} className="mr-1.5" />
+                  <span>Profile Settings</span>
+                </Button>
               </div>
             </motion.div>
           </div>
           
           {/* Main tabs */}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid grid-cols-4 mb-6">
+            <TabsList className="grid grid-cols-6 mb-6">
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="tax-form">Tax Return</TabsTrigger>
               <TabsTrigger value="documents">Documents</TabsTrigger>
               <TabsTrigger value="messages">Messages</TabsTrigger>
               <TabsTrigger value="visa-info">Visa Info</TabsTrigger>
+              <TabsTrigger value="appointments">Appointments</TabsTrigger>
+              <TabsTrigger value="payments">Payments</TabsTrigger>
+              <TabsTrigger value="profile-settings">Profile</TabsTrigger>
             </TabsList>
             
             <TabsContent value="overview" className="bg-white rounded-xl shadow-card p-6">
@@ -255,6 +287,18 @@ const ClientPortal: React.FC = () => {
             
             <TabsContent value="visa-info">
               <VisaInfo visaType={clientData.visaType} />
+            </TabsContent>
+            
+            <TabsContent value="appointments">
+              <AppointmentScheduler />
+            </TabsContent>
+            
+            <TabsContent value="payments">
+              <PaymentIntegration />
+            </TabsContent>
+            
+            <TabsContent value="profile-settings">
+              <ProfileSettings clientData={clientData} />
             </TabsContent>
           </Tabs>
         </main>

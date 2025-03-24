@@ -268,14 +268,26 @@ const DocumentUploader: React.FC = () => {
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="text-red-500 hover:text-red-700"
-                          onClick={() => handleDelete(doc.id)}
-                        >
-                          Delete
-                        </Button>
+                        <div className="flex justify-end space-x-1">
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className="text-gray-500 hover:text-gray-700"
+                            onClick={() => handlePreviewDocument(doc)}
+                            title="Preview document"
+                          >
+                            <Eye size={16} />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="text-red-500 hover:text-red-700"
+                            onClick={() => handleDelete(doc.id)}
+                            title="Remove document"
+                          >
+                            <X size={16} />
+                          </Button>
+                        </div>
                       </td>
                     </tr>
                   ))}

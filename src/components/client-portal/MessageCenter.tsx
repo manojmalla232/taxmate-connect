@@ -100,9 +100,24 @@ const MessageCenter: React.FC = () => {
           <div className="h-10 w-10 rounded-full bg-blue-light text-blue-accent flex items-center justify-center mr-3">
             <User size={20} />
           </div>
-          <div>
-            <h2 className="text-lg font-semibold text-gray-900">Michael Chen</h2>
-            <p className="text-sm text-gray-500">Your Tax Agent</p>
+            <div>
+              <h2 className="text-lg font-semibold text-gray-900">Michael Chen</h2>
+              <p className="text-sm text-gray-500">Your Tax Agent</p>
+            </div>
+          </div>
+          
+          <div className="flex items-center">
+            {isConnected ? (
+              <div className="flex items-center text-green-500 text-xs">
+                <Wifi size={14} className="mr-1" />
+                <span>Connected</span>
+              </div>
+            ) : (
+              <div className="flex items-center text-red-500 text-xs">
+                <WifiOff size={14} className="mr-1" />
+                <span>Disconnected</span>
+              </div>
+            )}
           </div>
         </div>
       </div>
