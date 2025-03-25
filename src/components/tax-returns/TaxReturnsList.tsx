@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { FileText, CheckCircle, AlertCircle, Clock, Search } from 'lucide-react';
+import { FileText, CheckCircle, AlertCircle, Clock, Search, Calendar } from 'lucide-react';
 import { TaxReturn, getTaxReturns } from '@/services/taxReturnService';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -153,7 +153,7 @@ const TaxReturnsList: React.FC<TaxReturnsListProps> = ({ onSelectTaxReturn, sele
               whileHover={{ scale: 1.01 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-blue-50 rounded-full">
                     <FileText size={18} className="text-blue-accent" />
@@ -164,14 +164,15 @@ const TaxReturnsList: React.FC<TaxReturnsListProps> = ({ onSelectTaxReturn, sele
                   </div>
                 </div>
                 
-                <div className={`text-xs px-2.5 py-1 rounded-full flex items-center border ${getStatusClass(taxReturn.status)}`}>
+                <div className={`text-xs px-2.5 py-1 rounded-full flex items-center border self-start sm:self-center ${getStatusClass(taxReturn.status)}`}>
                   {getStatusIcon(taxReturn.status)}
                   <span className="ml-1.5 capitalize">{taxReturn.status.replace('-', ' ')}</span>
                 </div>
               </div>
               
-              <div className="mt-2 flex justify-between items-center">
-                <div className="text-xs text-gray-500">
+              <div className="mt-2 flex flex-wrap gap-2 sm:justify-between sm:items-center">
+                <div className="text-xs text-gray-500 flex items-center">
+                  <Calendar size={12} className="mr-1" />
                   Due: {taxReturn.dueDate}
                 </div>
                 {taxReturn.visaType && (

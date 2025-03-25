@@ -39,25 +39,25 @@ const Dashboard: React.FC = () => {
     <div className="min-h-screen bg-gray-50 flex">
       <Sidebar />
       
-      <div className="flex-1 pb-16 md:pb-0 md:ml-16 lg:ml-64">
+      <div className="flex-1 pb-20 md:pb-0 md:ml-16 lg:ml-64">
         <PageTransition>
-          <main className="page-container py-10">
+          <main className="page-container py-6 sm:py-10">
             <WelcomeCard userName="John" />
             
-            <div className="mt-8">
+            <div className="mt-6 sm:mt-8">
               <DashboardStats taxReturns={taxReturns} isLoading={isLoading} />
             </div>
             
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mt-6 sm:mt-8">
               <UpcomingDeadlines deadlines={upcomingDeadlines} isLoading={isLoading} />
               <RecentActivity activities={recentActivities} isLoading={isLoading} />
             </div>
             
-            <div className="mt-8">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+            <div className="mt-6 sm:mt-8">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4 mb-4">
                 <h2 className="text-xl font-semibold text-gray-900">Recent Clients</h2>
                 <Button 
-                  className="bg-blue-accent hover:bg-blue-accent/90"
+                  className="bg-blue-accent hover:bg-blue-accent/90 w-full md:w-auto"
                   onClick={() => window.location.href = '/clients'}
                 >
                   <Plus size={16} className="mr-1.5" />

@@ -140,15 +140,17 @@ const TaxReturns: React.FC = () => {
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <div className="lg:col-span-1">
-                <TaxReturnsList onSelectTaxReturn={setSelectedTaxReturn} selectedId={selectedTaxReturn} />
+              <div className="lg:col-span-1 order-2 lg:order-1">
+                <div className="lg:sticky lg:top-6">
+                  <TaxReturnsList onSelectTaxReturn={setSelectedTaxReturn} selectedId={selectedTaxReturn} />
+                </div>
               </div>
               
-              <div className="lg:col-span-2">
+              <div className="lg:col-span-2 order-1 lg:order-2 mb-6 lg:mb-0">
                 {selectedTaxReturn ? (
                   <TaxReturnDetail taxReturnId={selectedTaxReturn} />
                 ) : (
-                  <div className="bg-white rounded-xl shadow-card p-8 h-full flex items-center justify-center">
+                  <div className="bg-white rounded-xl shadow-card p-6 sm:p-8 h-full flex items-center justify-center">
                     <div className="text-center">
                       <FileText size={48} className="text-gray-300 mx-auto mb-4" />
                       <h3 className="text-xl font-medium text-gray-700 mb-2">Select a Tax Return</h3>

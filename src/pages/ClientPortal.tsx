@@ -227,16 +227,16 @@ const ClientPortal: React.FC = () => {
           
           {/* Main tabs */}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <div className="overflow-x-auto pb-2 mb-2">
-              <TabsList className="inline-flex min-w-full md:grid md:grid-cols-8 mb-4">
-                <TabsTrigger value="overview">Overview</TabsTrigger>
-                <TabsTrigger value="tax-form">Tax Return</TabsTrigger>
-                <TabsTrigger value="documents">Documents</TabsTrigger>
-                <TabsTrigger value="messages">Messages</TabsTrigger>
-                <TabsTrigger value="visa-info">Visa Info</TabsTrigger>
-                <TabsTrigger value="appointments">Appointments</TabsTrigger>
-                <TabsTrigger value="payments">Payments</TabsTrigger>
-                <TabsTrigger value="profile-settings">Profile</TabsTrigger>
+            <div className="overflow-x-auto pb-2 mb-2 -mx-4 px-4 sm:mx-0 sm:px-0">
+              <TabsList className="inline-flex min-w-full md:grid md:grid-cols-8 mb-4 gap-1 p-1">
+                <TabsTrigger value="overview" className="text-sm whitespace-nowrap">Overview</TabsTrigger>
+                <TabsTrigger value="tax-form" className="text-sm whitespace-nowrap">Tax Return</TabsTrigger>
+                <TabsTrigger value="documents" className="text-sm whitespace-nowrap">Documents</TabsTrigger>
+                <TabsTrigger value="messages" className="text-sm whitespace-nowrap">Messages</TabsTrigger>
+                <TabsTrigger value="visa-info" className="text-sm whitespace-nowrap">Visa Info</TabsTrigger>
+                <TabsTrigger value="appointments" className="text-sm whitespace-nowrap">Appointments</TabsTrigger>
+                <TabsTrigger value="payments" className="text-sm whitespace-nowrap">Payments</TabsTrigger>
+                <TabsTrigger value="profile-settings" className="text-sm whitespace-nowrap">Profile</TabsTrigger>
               </TabsList>
             </div>
             

@@ -95,7 +95,8 @@ const ClientList: React.FC = () => {
         </div>
       </div>
       
-      <div className="overflow-x-auto">
+      {/* Desktop view - Table */}
+      <div className="hidden md:block overflow-x-auto">
         <table className="w-full">
           <thead>
             <tr className="text-left bg-gray-50">
@@ -206,13 +207,68 @@ const ClientList: React.FC = () => {
               ))
             ) : (
               <tr>
-                <td colSpan={6} className="px-6 py-4 text-center text-gray-500">
-                  No clients found matching your search.
+                <td colSpan={6} className="px-6 py-8 text-center text-gray-500">
+                  No clients found matching your search criteria.
                 </td>
               </tr>
             )}
           </motion.tbody>
         </table>
+      </div>
+
+      {/* Mobile view - Cards */}
+      <div className="md:hidden">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="space-y-4"
+        >
+          {sortedClients.length > 0 ? (
+            sortedClients.map((client) => (
+              <motion.div
+                key={client.id}
+                className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow"
+                variants={itemVariants}
+              >
+                <div className="flex justify-between items-start mb-2">
+                  <div className="font-medium text-gray-900">{client.name}</div>
+                  <span className={`px-2.5 py-1 text-xs font-medium rounded-full ${
+                    client.status === 'active' 
+                      ? 'bg-green-50 text-green-600' 
+                      : 'bg-amber-50 text-amber-600'
+                  }`}>
+                    {client.status === 'active' ? 'Active' : 'Pending'}
+                  </span>
+                </div>
+                
+                <div className="text-sm text-gray-700 mb-2">{client.email}</div>
+                
+                <div className="flex flex-wrap gap-2 mb-3">
+                  <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-blue-light text-blue-accent">
+                    {client.visaType}
+                  </span>
+                  <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-700">
+                    {client.taxReturns} Tax Returns
+                  </span>
+                </div>
+                
+                <div className="flex justify-end">
+                  <button 
+                    className="text-gray-500 hover:text-blue-accent transition-colors p-2"
+                    aria-label="More options"
+                  >
+                    <MoreHorizontal size={18} />
+                  </button>
+                </div>
+              </motion.div>
+            ))
+          ) : (
+            <div className="py-8 text-center text-gray-500">
+              No clients found matching your search criteria.
+            </div>
+          )}
+        </motion.div>
       </div>
       
       <div className="px-6 py-4 border-t border-gray-200 text-sm text-gray-500">

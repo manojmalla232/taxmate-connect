@@ -74,9 +74,12 @@ const Reports: React.FC = () => {
             data={getStatusDistribution()}
             cx="50%"
             cy="50%"
-            labelLine={true}
-            label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-            outerRadius={120}
+            labelLine={false}
+            label={({ name, percent }) => window.innerWidth < 768 ? 
+              (percent > 0.1 ? `${(percent * 100).toFixed(0)}%` : '') : 
+              `${name}: ${(percent * 100).toFixed(0)}%`
+            }
+            outerRadius={window.innerWidth < 768 ? 80 : 120}
             fill="#8884d8"
             dataKey="value"
           >
@@ -85,7 +88,7 @@ const Reports: React.FC = () => {
             ))}
           </Pie>
           <Tooltip />
-          <Legend />
+          <Legend layout={window.innerWidth < 768 ? "horizontal" : "vertical"} />
         </RechartPieChart>
       </ResponsiveContainer>
     </div>
