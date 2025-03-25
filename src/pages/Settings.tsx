@@ -247,7 +247,7 @@ const Settings: React.FC = () => {
     <div className="min-h-screen bg-gray-50 flex">
       <Sidebar />
       
-      <div className="flex-1 ml-16 md:ml-64">
+      <div className="flex-1 ml-16 md:ml-64 px-4 md:px-0">
         <PageTransition>
           <main className="page-container py-10">
             <div className="mb-8">

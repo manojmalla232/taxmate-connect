@@ -39,7 +39,7 @@ const Dashboard: React.FC = () => {
     <div className="min-h-screen bg-gray-50 flex">
       <Sidebar />
       
-      <div className="flex-1 pb-20 md:pb-0 md:ml-16 lg:ml-64">
+      <div className="flex-1 pb-20 md:pb-0 md:ml-16 lg:ml-64 px-4 md:px-0">
         <PageTransition>
           <main className="page-container py-6 sm:py-10">
             <WelcomeCard userName="John" />

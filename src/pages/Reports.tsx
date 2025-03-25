@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { Download, BarChart, PieChart, TrendingUp, Calendar, Filter, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Sidebar from '@/components/layout/Sidebar';
@@ -22,6 +23,7 @@ import {
 
 const Reports: React.FC = () => {
   const [selectedReport, setSelectedReport] = useState('status');
+  const isMobile = useIsMobile();
   
   const { data: taxReturns = [], isLoading } = useQuery({
     queryKey: ['taxReturns'],
@@ -75,11 +77,11 @@ const Reports: React.FC = () => {
             cx="50%"
             cy="50%"
             labelLine={false}
-            label={({ name, percent }) => window.innerWidth < 768 ? 
+            label={({ name, percent }) => isMobile ? 
               (percent > 0.1 ? `${(percent * 100).toFixed(0)}%` : '') : 
               `${name}: ${(percent * 100).toFixed(0)}%`
             }
-            outerRadius={window.innerWidth < 768 ? 80 : 120}
+            outerRadius={isMobile ? 80 : 120}
             fill="#8884d8"
             dataKey="value"
           >
@@ -88,7 +90,7 @@ const Reports: React.FC = () => {
             ))}
           </Pie>
           <Tooltip />
-          <Legend layout={window.innerWidth < 768 ? "horizontal" : "vertical"} />
+          <Legend layout={isMobile ? "horizontal" : "vertical"} />
         </RechartPieChart>
       </ResponsiveContainer>
     </div>
@@ -123,7 +125,7 @@ const Reports: React.FC = () => {
     <div className="min-h-screen bg-gray-50 flex">
       <Sidebar />
       
-      <div className="flex-1 ml-16 md:ml-64">
+      <div className="flex-1 ml-16 md:ml-64 px-4 md:px-0">
         <PageTransition>
           <main className="page-container py-10">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
