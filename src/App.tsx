@@ -8,6 +8,7 @@ import { AnimatePresence } from "framer-motion";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import Clients from "./pages/Clients";
+import Messages from "./pages/Messages";
 import TaxReturns from "./pages/TaxReturns";
 import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
@@ -28,6 +29,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/clients" element={<Clients />} />
+            <Route path="/messages" element={<Messages />} />
             <Route path="/tax-returns" element={<TaxReturns />} />
             <Route path="/reports" element={<Reports />} />
             <Route path="/settings" element={<Settings />} />

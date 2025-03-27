@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FileText, Upload, MessageSquare, Calendar, LogOut, User, AlertCircle, Settings, CreditCard } from 'lucide-react';
+import { FileText, Upload, MessageSquare, Calendar, LogOut, User, AlertCircle, Settings, CreditCard, MoreHorizontal, Home } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -60,12 +60,25 @@ const ClientPortal: React.FC = () => {
               </div>
               
               <div className="flex items-center space-x-2 sm:space-x-4">
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  onClick={() => setActiveTab('messages')}
+                  aria-label="Messages"
+                  className="relative"
+                >
+                  <MessageSquare size={18} />
+                  <span className="absolute -top-1 -right-1 bg-blue-accent text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center">2</span>
+                </Button>
                 <NotificationCenter />
                 <div className="text-sm text-right hidden sm:block">
                   <div className="text-gray-900 font-medium">{clientData.name}</div>
                   <div className="text-gray-500">{clientData.visaType}</div>
                 </div>
-                <div className="h-9 w-9 rounded-full bg-blue-light text-blue-accent flex items-center justify-center">
+                <div 
+                  className="h-9 w-9 rounded-full bg-blue-light text-blue-accent flex items-center justify-center cursor-pointer"
+                  onClick={() => setActiveTab('profile-settings')}
+                >
                   <User size={18} />
                 </div>
                 <Button 
@@ -205,6 +218,7 @@ const ClientPortal: React.FC = () => {
                   <Calendar size={16} className="mr-1.5" />
                   <span>Schedule Appointment</span>
                 </Button>
+                <h4 className="text-xs font-medium text-gray-500 mt-4 mb-2 uppercase tracking-wider">More Options</h4>
                 <Button 
                   variant="outline" 
                   className="w-full justify-start"
@@ -227,8 +241,8 @@ const ClientPortal: React.FC = () => {
           
           {/* Main tabs */}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <div className="overflow-x-auto pb-2 mb-2 -mx-4 px-4 sm:mx-0 sm:px-0">
-              <TabsList className="inline-flex min-w-full md:grid md:grid-cols-8 mb-4 gap-1 p-1">
+            <div className="overflow-x-auto pb-2 mb-2 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-none">
+              <TabsList className="inline-flex md:grid md:grid-cols-8 mb-4 gap-1 p-1 w-full">
                 <TabsTrigger value="overview" className="text-sm whitespace-nowrap">Overview</TabsTrigger>
                 <TabsTrigger value="tax-form" className="text-sm whitespace-nowrap">Tax Return</TabsTrigger>
                 <TabsTrigger value="documents" className="text-sm whitespace-nowrap">Documents</TabsTrigger>

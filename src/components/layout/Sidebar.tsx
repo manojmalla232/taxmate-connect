@@ -11,7 +11,8 @@ import {
   Settings, 
   LogOut, 
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  MessageSquare
 } from 'lucide-react';
 import AnimatedLogo from '../ui/AnimatedLogo';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -29,6 +30,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
   const primaryMenuItems = [
     { icon: Home, label: 'Dashboard', path: '/dashboard' },
     { icon: Users, label: 'Clients', path: '/clients' },
+    { icon: MessageSquare, label: 'Messages', path: '/messages' },
     { icon: FileText, label: 'Tax Returns', path: '/tax-returns' }
   ];
   

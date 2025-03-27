@@ -125,20 +125,20 @@ const Reports: React.FC = () => {
     <div className="min-h-screen bg-gray-50 flex">
       <Sidebar />
       
-      <div className="flex-1 ml-16 md:ml-64 px-4 md:px-0">
+      <div className="flex-1 pb-20 md:pb-0 md:ml-16 lg:ml-64 px-4 md:px-6">
         <PageTransition>
-          <main className="page-container py-10">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+          <main className="page-container py-4 sm:py-6 md:py-10 max-w-7xl mx-auto">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4 mb-5 sm:mb-8">
               <div>
-                <h1 className="text-2xl font-semibold text-gray-900">Reports</h1>
-                <p className="text-gray-500 mt-1">Analyze tax return data and generate insights.</p>
+                <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">Reports</h1>
+                <p className="text-sm sm:text-base text-gray-500 mt-1">Analyze tax return data and generate insights.</p>
               </div>
               
-              <div className="flex gap-3">
+              <div className="flex flex-wrap gap-3 w-full md:w-auto">
                 <Button 
                   variant={selectedReport === 'status' ? 'default' : 'outline'} 
                   onClick={() => setSelectedReport('status')}
-                  className={selectedReport === 'status' ? 'bg-blue-accent hover:bg-blue-accent/90' : ''}
+                  className={`flex-1 md:flex-none text-xs sm:text-sm ${selectedReport === 'status' ? 'bg-blue-accent hover:bg-blue-accent/90' : ''}`}
                 >
                   <PieChart size={16} className="mr-1.5" />
                   <span>Status</span>
@@ -146,7 +146,7 @@ const Reports: React.FC = () => {
                 <Button 
                   variant={selectedReport === 'visa' ? 'default' : 'outline'}
                   onClick={() => setSelectedReport('visa')}
-                  className={selectedReport === 'visa' ? 'bg-blue-accent hover:bg-blue-accent/90' : ''}
+                  className={`flex-1 md:flex-none text-xs sm:text-sm ${selectedReport === 'visa' ? 'bg-blue-accent hover:bg-blue-accent/90' : ''}`}
                 >
                   <BarChart size={16} className="mr-1.5" />
                   <span>Visa Types</span>
@@ -155,9 +155,9 @@ const Reports: React.FC = () => {
             </div>
             
             {isLoading ? (
-              <div className="bg-white p-12 rounded-xl shadow-card flex items-center justify-center">
+              <div className="bg-white p-6 sm:p-12 rounded-xl shadow-card flex items-center justify-center">
                 <div className="animate-pulse">
-                  <div className="h-48 w-48 bg-gray-200 rounded-full mx-auto mb-4"></div>
+                  <div className="h-32 sm:h-48 w-32 sm:w-48 bg-gray-200 rounded-full mx-auto mb-4"></div>
                   <div className="h-6 bg-gray-200 rounded w-3/4 mx-auto mb-2"></div>
                   <div className="h-4 bg-gray-100 rounded w-1/2 mx-auto"></div>
                 </div>
@@ -168,53 +168,59 @@ const Reports: React.FC = () => {
               </div>
             )}
             
-            <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-white p-6 rounded-xl shadow-card">
+            <div className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+              <div className="bg-white p-4 sm:p-6 rounded-xl shadow-card">
                 <div className="flex items-center mb-4">
-                  <div className="w-10 h-10 bg-green-50 rounded-full flex items-center justify-center mr-3">
-                    <CheckCircle size={20} className="text-green-500" />
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-green-50 rounded-full flex items-center justify-center mr-3">
+                    <CheckCircle size={16} className="text-green-500 sm:text-[20px]" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-medium">Completion Rate</h3>
-                    <p className="text-sm text-gray-500">Tax returns completed vs total</p>
+                    <h3 className="text-sm sm:text-lg font-medium">Completion Rate</h3>
+                    <p className="text-xs sm:text-sm text-gray-500">Tax returns completed vs total</p>
                   </div>
                 </div>
-                <div className="text-3xl font-bold text-gray-900">
+                <div className="text-xl sm:text-3xl font-bold text-gray-900">
                   {taxReturns.length > 0 
                     ? `${Math.round((taxReturns.filter(tr => tr.status === 'completed').length / taxReturns.length) * 100)}%` 
                     : '0%'}
                 </div>
               </div>
               
-              <div className="bg-white p-6 rounded-xl shadow-card">
+              <div className="bg-white p-4 sm:p-6 rounded-xl shadow-card">
                 <div className="flex items-center mb-4">
-                  <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center mr-3">
-                    <TrendingUp size={20} className="text-blue-accent" />
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-50 rounded-full flex items-center justify-center mr-3">
+                    <TrendingUp size={16} className="text-blue-accent sm:text-[20px]" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-medium">Average Refund</h3>
-                    <p className="text-sm text-gray-500">For completed returns</p>
+                    <h3 className="text-sm sm:text-lg font-medium">Average Refund</h3>
+                    <p className="text-xs sm:text-sm text-gray-500">For completed returns</p>
                   </div>
                 </div>
-                <div className="text-3xl font-bold text-gray-900">
+                <div className="text-xl sm:text-3xl font-bold text-gray-900">
                   {taxReturns.filter(tr => tr.status === 'completed').length > 0 
-                    ? `$${Math.round(taxReturns.filter(tr => tr.status === 'completed').reduce((sum, tr) => sum + tr.refundAmount, 0) / taxReturns.filter(tr => tr.status === 'completed').length).toLocaleString()}`
+                    ? `$${Math.round(taxReturns.filter(tr => tr.status === 'completed').reduce((sum, tr) => sum + tr.refundAmount, 0) / taxReturns.filter(tr => tr.status === 'completed').length).toLocaleString()}` 
                     : '$0'}
                 </div>
               </div>
               
-              <div className="bg-white p-6 rounded-xl shadow-card">
+              <div className="bg-white p-4 sm:p-6 rounded-xl shadow-card">
                 <div className="flex items-center mb-4">
-                  <div className="w-10 h-10 bg-amber-50 rounded-full flex items-center justify-center mr-3">
-                    <Calendar size={20} className="text-amber-500" />
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-amber-50 rounded-full flex items-center justify-center mr-3">
+                    <Calendar size={16} className="text-amber-500 sm:text-[20px]" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-medium">Processing Time</h3>
-                    <p className="text-sm text-gray-500">Average days to complete</p>
+                    <h3 className="text-sm sm:text-lg font-medium">Upcoming Deadlines</h3>
+                    <p className="text-xs sm:text-sm text-gray-500">Next 30 days</p>
                   </div>
                 </div>
-                <div className="text-3xl font-bold text-gray-900">
-                  14 days
+                <div className="text-xl sm:text-3xl font-bold text-gray-900">
+                  {taxReturns.filter(tr => {
+                    const today = new Date();
+                    const due = new Date(tr.dueDate);
+                    const diffTime = due.getTime() - today.getTime();
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    return diffDays > 0 && diffDays <= 30 && tr.status !== 'completed';
+                  }).length}
                 </div>
               </div>
             </div>

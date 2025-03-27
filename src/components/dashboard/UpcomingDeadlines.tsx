@@ -68,24 +68,27 @@ const UpcomingDeadlines: React.FC<UpcomingDeadlinesProps> = ({ deadlines, isLoad
 
   return (
     <div className="bg-white rounded-xl shadow-card overflow-hidden">
-      <div className="flex items-center justify-between p-5 border-b border-gray-100">
-        <h3 className="font-medium text-gray-900">Upcoming Deadlines</h3>
+      <div className="flex items-center justify-between p-2 xs:p-3 sm:p-4 md:p-5 border-b border-gray-100">
+        <h3 className="font-medium text-gray-900 text-xs xs:text-sm sm:text-base">Upcoming Deadlines</h3>
         <Link to="/tax-returns">
-          <Button variant="outline" size="sm">View All</Button>
+          <Button variant="outline" size="sm" className="h-6 xs:h-8 px-1.5 xs:px-2 sm:px-3 text-xs">
+            <span className="hidden xs:inline">View All</span>
+            <span className="xs:hidden">View</span>
+          </Button>
         </Link>
       </div>
       
       <div className="divide-y divide-gray-100">
         {deadlines.length === 0 ? (
-          <div className="p-6 text-center text-gray-500">
-            <Calendar size={32} className="text-gray-300 mx-auto mb-2" />
-            <p>No upcoming deadlines</p>
+          <div className="p-3 xs:p-4 sm:p-6 text-center text-gray-500">
+            <Calendar size={24} className="text-gray-300 mx-auto mb-2" />
+            <p className="text-xs xs:text-sm">No upcoming deadlines</p>
           </div>
         ) : (
           deadlines.map((taxReturn, index) => (
             <motion.div 
               key={taxReturn.id}
-              className="p-4 hover:bg-gray-50"
+              className="p-2 xs:p-2.5 sm:p-3 md:p-4 hover:bg-gray-50"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: index * 0.1 }}
@@ -93,20 +96,21 @@ const UpcomingDeadlines: React.FC<UpcomingDeadlinesProps> = ({ deadlines, isLoad
               <Link 
                 to={`/tax-returns`} 
                 state={{ selectedId: taxReturn.id }}
-                className="flex items-center justify-between"
+                className="flex items-center justify-between w-full"
               >
-                <div className="flex items-center">
-                  <div className="p-2 bg-gray-100 rounded-full">
+                <div className="flex items-center min-w-0 flex-1 pr-1 xs:pr-2">
+                  <div className="p-1 sm:p-1.5 md:p-2 bg-gray-100 rounded-full flex-shrink-0">
                     {getStatusIcon(taxReturn.status)}
                   </div>
-                  <div className="ml-3">
-                    <p className="text-sm text-gray-900 font-medium">{taxReturn.clientName}</p>
-                    <p className="text-xs text-gray-500">{taxReturn.taxYear}</p>
+                  <div className="ml-1.5 xs:ml-2 sm:ml-3 min-w-0">
+                    <p className="text-xs font-medium text-gray-900 line-clamp-1 break-words">{taxReturn.clientName}</p>
+                    <p className="text-xs text-gray-500 mt-0.5">{taxReturn.taxYear} Tax Return</p>
                   </div>
                 </div>
-                <div className={`text-xs ${getDueDateClass(taxReturn.dueDate)}`}>
+                
+                <span className={`text-xs whitespace-nowrap flex-shrink-0 ${getDueDateClass(taxReturn.dueDate)}`}>
                   {getDaysUntilDue(taxReturn.dueDate)}
-                </div>
+                </span>
               </Link>
             </motion.div>
           ))

@@ -71,24 +71,24 @@ const ClientList: React.FC = () => {
 
   return (
     <div className="bg-white rounded-xl shadow-card overflow-hidden">
-      <div className="p-6 border-b border-gray-200">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <h2 className="text-xl font-semibold text-gray-900">Recent Clients</h2>
+      <div className="p-3 xs:p-4 sm:p-6 border-b border-gray-200">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 xs:gap-3 sm:gap-4">
+          <h2 className="text-lg xs:text-xl font-semibold text-gray-900">Recent Clients</h2>
           
-          <div className="flex items-center space-x-3">
-            <div className="relative">
+          <div className="flex flex-col xs:flex-row xs:items-center space-y-2 xs:space-y-0 xs:space-x-2 sm:space-x-3">
+            <div className="relative w-full xs:w-auto">
               <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
               <input
                 type="text"
                 placeholder="Search clients..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-9 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-accent focus:border-transparent text-sm"
+                className="w-full xs:w-auto pl-9 pr-3 xs:pr-4 py-1.5 xs:py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-accent focus:border-transparent text-xs xs:text-sm"
               />
             </div>
             
-            <Button className="bg-blue-accent hover:bg-blue-accent/90">
-              <Plus size={16} className="mr-1.5" />
+            <Button className="bg-blue-accent hover:bg-blue-accent/90 text-xs xs:text-sm py-1.5 xs:py-2 h-auto">
+              <Plus size={14} className="mr-1 xs:mr-1.5" />
               <span>Add Client</span>
             </Button>
           </div>
@@ -96,7 +96,7 @@ const ClientList: React.FC = () => {
       </div>
       
       {/* Desktop view - Table */}
-      <div className="hidden md:block overflow-x-auto">
+      <div className="hidden md:block overflow-x-auto pb-2 scrollbar-none">
         <table className="w-full">
           <thead>
             <tr className="text-left bg-gray-50">
@@ -222,40 +222,36 @@ const ClientList: React.FC = () => {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="space-y-4"
+          className="space-y-3"
         >
           {sortedClients.length > 0 ? (
             sortedClients.map((client) => (
               <motion.div
                 key={client.id}
-                className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow"
+                className="bg-white border border-gray-200 rounded-lg p-2 xs:p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow"
                 variants={itemVariants}
               >
-                <div className="flex justify-between items-start mb-2">
-                  <div className="font-medium text-gray-900">{client.name}</div>
-                  <span className={`px-2.5 py-1 text-xs font-medium rounded-full ${
-                    client.status === 'active' 
-                      ? 'bg-green-50 text-green-600' 
-                      : 'bg-amber-50 text-amber-600'
-                  }`}>
+                <div className="flex justify-between items-start mb-1.5 xs:mb-2">
+                  <div className="font-medium text-gray-900 text-xs xs:text-sm sm:text-base">{client.name}</div>
+                  <span className={`px-1.5 py-0.5 xs:px-2 xs:py-0.5 sm:px-2.5 sm:py-1 text-xs font-medium rounded-full ${client.status === 'active' ? 'bg-green-50 text-green-600' : 'bg-amber-50 text-amber-600'}`}>
                     {client.status === 'active' ? 'Active' : 'Pending'}
                   </span>
                 </div>
                 
-                <div className="text-sm text-gray-700 mb-2">{client.email}</div>
+                <div className="text-xs text-gray-700 mb-1.5 xs:mb-2">{client.email}</div>
                 
-                <div className="flex flex-wrap gap-2 mb-3">
-                  <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-blue-light text-blue-accent">
+                <div className="flex flex-wrap gap-1.5 xs:gap-2 mb-1.5 xs:mb-2">
+                  <span className="px-1.5 py-0.5 xs:px-2 xs:py-0.5 sm:px-2.5 sm:py-1 text-xs font-medium rounded-full bg-blue-light text-blue-accent">
                     {client.visaType}
                   </span>
-                  <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-700">
+                  <span className="px-1.5 py-0.5 xs:px-2 xs:py-0.5 sm:px-2.5 sm:py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-700">
                     {client.taxReturns} Tax Returns
                   </span>
                 </div>
                 
                 <div className="flex justify-end">
                   <button 
-                    className="text-gray-500 hover:text-blue-accent transition-colors p-2"
+                    className="text-gray-500 hover:text-blue-accent transition-colors p-1.5 sm:p-2"
                     aria-label="More options"
                   >
                     <MoreHorizontal size={18} />
@@ -264,14 +260,14 @@ const ClientList: React.FC = () => {
               </motion.div>
             ))
           ) : (
-            <div className="py-8 text-center text-gray-500">
+            <div className="py-6 sm:py-8 text-center text-gray-500">
               No clients found matching your search criteria.
             </div>
           )}
         </motion.div>
       </div>
       
-      <div className="px-6 py-4 border-t border-gray-200 text-sm text-gray-500">
+      <div className="px-4 sm:px-6 py-3 sm:py-4 border-t border-gray-200 text-xs sm:text-sm text-gray-500">
         Showing {sortedClients.length} of {clientsData.length} clients
       </div>
     </div>

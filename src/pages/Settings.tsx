@@ -56,9 +56,9 @@ const Settings: React.FC = () => {
 
   const renderProfileSettings = () => (
     <form onSubmit={handleProfileUpdate}>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="name">
+          <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1" htmlFor="name">
             Full Name
           </label>
           <Input 
@@ -70,7 +70,7 @@ const Settings: React.FC = () => {
         </div>
         
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="email">
+          <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1" htmlFor="email">
             Email Address
           </label>
           <Input 
@@ -83,7 +83,7 @@ const Settings: React.FC = () => {
         </div>
         
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="company">
+          <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1" htmlFor="company">
             Company Name
           </label>
           <Input 
@@ -95,7 +95,7 @@ const Settings: React.FC = () => {
         </div>
         
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="phone">
+          <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1" htmlFor="phone">
             Phone Number
           </label>
           <Input 
@@ -107,7 +107,7 @@ const Settings: React.FC = () => {
         </div>
         
         <div className="md:col-span-2">
-          <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="bio">
+          <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1" htmlFor="bio">
             Professional Bio
           </label>
           <Textarea 
@@ -119,7 +119,7 @@ const Settings: React.FC = () => {
         </div>
       </div>
       
-      <Button type="submit" className="bg-blue-accent hover:bg-blue-accent/90">
+      <Button type="submit" className="bg-blue-accent hover:bg-blue-accent/90 w-full xs:w-auto text-xs sm:text-sm">
         <Save size={16} className="mr-1.5" />
         <span>Save Changes</span>
       </Button>
@@ -128,11 +128,11 @@ const Settings: React.FC = () => {
 
   const renderNotificationSettings = () => (
     <form onSubmit={handleNotificationUpdate}>
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h4 className="text-sm font-medium text-gray-900">Email Notifications</h4>
-            <p className="text-sm text-gray-500">Receive email notifications for important updates</p>
+            <h4 className="text-xs sm:text-sm font-medium text-gray-900">Email Notifications</h4>
+            <p className="text-xs text-gray-500 mt-0.5">Receive email notifications for important updates</p>
           </div>
           <Switch 
             checked={notificationSettings.emailNotifications}
@@ -142,8 +142,8 @@ const Settings: React.FC = () => {
         
         <div className="flex items-center justify-between">
           <div>
-            <h4 className="text-sm font-medium text-gray-900">Deadline Reminders</h4>
-            <p className="text-sm text-gray-500">Get notified before tax return deadlines</p>
+            <h4 className="text-xs sm:text-sm font-medium text-gray-900">Deadline Reminders</h4>
+            <p className="text-xs text-gray-500 mt-0.5">Get notified before tax return deadlines</p>
           </div>
           <Switch 
             checked={notificationSettings.deadlineReminders}
@@ -153,8 +153,8 @@ const Settings: React.FC = () => {
         
         <div className="flex items-center justify-between">
           <div>
-            <h4 className="text-sm font-medium text-gray-900">Client Messages</h4>
-            <p className="text-sm text-gray-500">Receive notifications when clients send messages</p>
+            <h4 className="text-xs sm:text-sm font-medium text-gray-900">Client Messages</h4>
+            <p className="text-xs text-gray-500 mt-0.5">Receive notifications when clients send messages</p>
           </div>
           <Switch 
             checked={notificationSettings.clientMessages}
@@ -164,8 +164,8 @@ const Settings: React.FC = () => {
         
         <div className="flex items-center justify-between">
           <div>
-            <h4 className="text-sm font-medium text-gray-900">Marketing Emails</h4>
-            <p className="text-sm text-gray-500">Receive updates about new features and promotions</p>
+            <h4 className="text-xs sm:text-sm font-medium text-gray-900">Marketing Emails</h4>
+            <p className="text-xs text-gray-500 mt-0.5">Receive updates about new features and promotions</p>
           </div>
           <Switch 
             checked={notificationSettings.marketingEmails}
@@ -174,8 +174,8 @@ const Settings: React.FC = () => {
         </div>
       </div>
       
-      <div className="mt-8">
-        <Button type="submit" className="bg-blue-accent hover:bg-blue-accent/90">
+      <div className="mt-6 sm:mt-8">
+        <Button type="submit" className="bg-blue-accent hover:bg-blue-accent/90 w-full xs:w-auto text-xs sm:text-sm">
           <Save size={16} className="mr-1.5" />
           <span>Save Preferences</span>
         </Button>
@@ -185,44 +185,44 @@ const Settings: React.FC = () => {
 
   const renderSecuritySettings = () => (
     <div>
-      <div className="mb-8">
-        <h3 className="text-lg font-medium text-gray-900 mb-4">Change Password</h3>
-        <div className="space-y-4">
+      <div className="mb-6 sm:mb-8">
+        <h3 className="text-sm sm:text-lg font-medium text-gray-900 mb-3 sm:mb-4">Change Password</h3>
+        <div className="space-y-3 sm:space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="current-password">
+            <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1" htmlFor="current-password">
               Current Password
             </label>
             <Input id="current-password" type="password" className="w-full" />
           </div>
           
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="new-password">
+            <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1" htmlFor="new-password">
               New Password
             </label>
             <Input id="new-password" type="password" className="w-full" />
           </div>
           
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="confirm-password">
+            <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1" htmlFor="confirm-password">
               Confirm New Password
             </label>
             <Input id="confirm-password" type="password" className="w-full" />
           </div>
         </div>
         
-        <Button className="mt-4 bg-blue-accent hover:bg-blue-accent/90">
+        <Button className="mt-4 bg-blue-accent hover:bg-blue-accent/90 w-full xs:w-auto text-xs sm:text-sm">
           <Save size={16} className="mr-1.5" />
           <span>Update Password</span>
         </Button>
       </div>
       
       <div>
-        <h3 className="text-lg font-medium text-gray-900 mb-4">Two-Factor Authentication</h3>
-        <div className="bg-gray-50 p-4 rounded-lg mb-4">
+        <h3 className="text-sm sm:text-lg font-medium text-gray-900 mb-3 sm:mb-4">Two-Factor Authentication</h3>
+        <div className="bg-gray-50 p-3 sm:p-4 rounded-lg mb-4">
           <div className="flex items-start">
             <Shield className="text-blue-accent mt-1 mr-3" size={20} />
             <div>
-              <p className="text-sm text-gray-700">
+              <p className="text-xs sm:text-sm text-gray-700">
                 Two-factor authentication adds an extra layer of security to your account. 
                 When enabled, you'll be required to provide a verification code in addition to your password.
               </p>
@@ -230,7 +230,7 @@ const Settings: React.FC = () => {
           </div>
         </div>
         
-        <Button variant="outline">
+        <Button variant="outline" className="w-full xs:w-auto text-xs sm:text-sm">
           <span>Enable Two-Factor Authentication</span>
         </Button>
       </div>
@@ -247,33 +247,33 @@ const Settings: React.FC = () => {
     <div className="min-h-screen bg-gray-50 flex">
       <Sidebar />
       
-      <div className="flex-1 ml-16 md:ml-64 px-4 md:px-0">
+      <div className="flex-1 pb-20 md:pb-0 md:ml-16 lg:ml-64 px-4 md:px-6">
         <PageTransition>
-          <main className="page-container py-10">
-            <div className="mb-8">
-              <h1 className="text-2xl font-semibold text-gray-900">Settings</h1>
-              <p className="text-gray-500 mt-1">Manage your account preferences and settings.</p>
+          <main className="page-container py-4 sm:py-6 md:py-10 max-w-7xl mx-auto">
+            <div className="mb-5 sm:mb-8">
+              <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">Settings</h1>
+              <p className="text-gray-500 mt-1 text-sm sm:text-base">Manage your account preferences and settings.</p>
             </div>
             
             <div className="bg-white rounded-xl shadow-card overflow-hidden">
-              <div className="flex overflow-x-auto border-b border-gray-100">
+              <div className="flex overflow-x-auto border-b border-gray-100 pb-1 scrollbar-none">
                 {tabs.map((tab) => (
                   <button
                     key={tab.id}
-                    className={`flex items-center px-6 py-4 text-sm font-medium transition-colors ${
+                    className={`flex items-center px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm font-medium transition-colors ${
                       activeTab === tab.id 
                         ? 'text-blue-accent border-b-2 border-blue-accent' 
                         : 'text-gray-500 hover:text-gray-700'
                     }`}
                     onClick={() => setActiveTab(tab.id)}
                   >
-                    <span className="mr-2">{tab.icon}</span>
+                    <span className="mr-1.5 sm:mr-2">{tab.icon}</span>
                     <span>{tab.label}</span>
                   </button>
                 ))}
               </div>
               
-              <div className="p-6">
+              <div className="p-3 xs:p-4 sm:p-5 md:p-6">
                 {activeTab === 'profile' && renderProfileSettings()}
                 {activeTab === 'notifications' && renderNotificationSettings()}
                 {activeTab === 'security' && renderSecuritySettings()}

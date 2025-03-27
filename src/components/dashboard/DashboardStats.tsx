@@ -21,12 +21,12 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ taxReturns = [], isLoad
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-2 xs:gap-4 sm:gap-6">
         {[...Array(4)].map((_, i) => (
-          <div key={i} className="bg-white p-6 rounded-xl shadow-card">
-            <Skeleton className="h-8 w-8 rounded-full mb-4" />
-            <Skeleton className="h-6 w-16 mb-2" />
-            <Skeleton className="h-4 w-32" />
+          <div key={i} className="bg-white p-3 xs:p-4 sm:p-6 rounded-xl shadow-card">
+            <Skeleton className="h-6 w-6 xs:h-8 xs:w-8 rounded-full mb-2 xs:mb-3 sm:mb-4" />
+            <Skeleton className="h-5 xs:h-6 w-14 xs:w-16 mb-1 xs:mb-2" />
+            <Skeleton className="h-3 xs:h-4 w-24 xs:w-32" />
           </div>
         ))}
       </div>
@@ -65,22 +65,22 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ taxReturns = [], isLoad
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
       {stats.map((stat, index) => (
         <motion.div
           key={index}
-          className="bg-white p-6 rounded-xl shadow-card hover:shadow-lg transition-all"
+          className="bg-white p-4 sm:p-6 rounded-xl shadow-card hover:shadow-lg transition-all"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.1, duration: 0.5 }}
         >
-          <div className={`w-12 h-12 ${stat.bgColor} rounded-full flex items-center justify-center mb-4`}>
+          <div className={`w-10 h-10 sm:w-12 sm:h-12 ${stat.bgColor} rounded-full flex items-center justify-center mb-3 sm:mb-4`}>
             {stat.icon}
           </div>
-          <h3 className={`text-2xl font-semibold mb-1 ${stat.textColor}`}>
+          <h3 className={`text-xl sm:text-2xl font-semibold mb-1 ${stat.textColor}`}>
             {stat.value}
           </h3>
-          <p className="text-gray-500 text-sm">{stat.title}</p>
+          <p className="text-gray-500 text-xs sm:text-sm">{stat.title}</p>
         </motion.div>
       ))}
     </div>

@@ -26,31 +26,31 @@ const WelcomeCard: React.FC<WelcomeCardProps> = ({ userName }) => {
 
   return (
     <motion.div 
-      className="bg-white rounded-xl p-6 shadow-card overflow-hidden relative"
+      className="bg-white rounded-xl p-3 xs:p-4 sm:p-6 shadow-card overflow-hidden relative"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="absolute right-0 top-0 w-40 h-40 bg-blue-light rounded-bl-full opacity-30" />
+      <div className="absolute right-0 top-0 w-24 xs:w-28 sm:w-40 h-24 xs:h-28 sm:h-40 bg-blue-light rounded-bl-full opacity-30" />
       
-      <div className="flex items-start justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between">
         <div className="max-w-lg">
-          <h1 className="text-2xl font-semibold text-gray-900 mb-1">
+          <h1 className="text-lg xs:text-xl sm:text-2xl font-semibold text-gray-900 mb-1">
             Good {getTimeOfDay()}, {userName}
           </h1>
-          <div className="flex items-center text-gray-500 mb-4">
+          <div className="flex items-center text-gray-500 mb-2 xs:mb-3 sm:mb-4">
             <Calendar size={16} className="mr-1.5" />
-            <span className="text-sm">{formattedDate}</span>
+            <span className="text-xs xs:text-sm">{formattedDate}</span>
           </div>
-          <p className="text-gray-700 mb-5">
+          <p className="text-gray-700 mb-3 xs:mb-4 sm:mb-5 text-xs xs:text-sm sm:text-base">
             Welcome to your dashboard. You have 3 clients with tax returns due this month, and 2 new document uploads to review.
           </p>
-          <div className="flex items-center space-x-4">
-            <Button className="bg-blue-accent hover:bg-blue-accent/90">
+          <div className="flex flex-col xs:flex-row xs:items-center space-y-2 xs:space-y-0 xs:space-x-3 sm:space-x-4">
+            <Button className="bg-blue-accent hover:bg-blue-accent/90 w-full xs:w-auto text-xs xs:text-sm">
               <span>New Tax Return</span>
-              <ArrowRight size={16} className="ml-2" />
+              <ArrowRight size={14} className="ml-1.5 xs:ml-2" />
             </Button>
-            <Button variant="outline">View Notifications</Button>
+            <Button variant="outline" className="text-xs xs:text-sm">View Notifications</Button>
           </div>
         </div>
         
