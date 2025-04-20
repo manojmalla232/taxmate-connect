@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, User } from 'lucide-react';
@@ -29,7 +28,10 @@ const Header: React.FC = () => {
     { label: "Features", path: "/#features" },
     { label: "Pricing", path: "/#pricing" },
     { label: "About", path: "/#about" },
-    { label: "Contact", path: "/#contact" }
+    { label: "Contact", path: "/#contact" },
+    { label: "Agent Register", path: "/register-agent" },
+    { label: "Client Register", path: "/register-client" },
+    { label: "Admin Panel", path: "/admin" },
   ];
 
   const headerVariants = {

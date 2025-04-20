@@ -7,8 +7,8 @@ import Sidebar from '@/components/layout/Sidebar';
 import PageTransition from '@/components/shared/PageTransition';
 import PortalHeader from '@/components/layout/PortalHeader';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL!;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY!;
 const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
 
 type MessageRow = Database['public']['Tables']['messages']['Row'];
