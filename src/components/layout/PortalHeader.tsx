@@ -1,14 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Bell, MessageSquare, User } from "lucide-react";
+import { Bell, MessageSquare, User, LogOut } from "lucide-react";
 import AnimatedLogo from "../ui/AnimatedLogo";
 
 export interface PortalHeaderProps {
   type: 'client' | 'agent';
   profileName?: string;
+  handleLogout?: () => void;
 }
 
-const PortalHeader: React.FC<PortalHeaderProps> = ({ type, profileName }) => {
+const PortalHeader: React.FC<PortalHeaderProps> = ({ type, profileName, handleLogout }) => {
   // Route links and icons based on portal type
   const messageLink = type === 'client' ? '/client-portal/messages' : '/messages';
   const profileLink = type === 'client' ? '/client-portal/profile-settings' : '/settings';
@@ -42,6 +43,15 @@ const PortalHeader: React.FC<PortalHeaderProps> = ({ type, profileName }) => {
             <button className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50">Logout</button>
           </div> */}
         </div>
+        {handleLogout && (
+          <button
+            className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+            aria-label="Logout"
+            onClick={handleLogout}
+          >
+            <LogOut size={20} className="text-gray-700" />
+          </button>
+        )}
       </div>
     </header>
   );

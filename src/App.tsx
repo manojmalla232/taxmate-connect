@@ -14,6 +14,7 @@ import Settings from "./pages/Settings";
 import ClientPortal from "./pages/ClientPortal";
 import ClientLogin from "./pages/ClientLogin";
 import NotFound from "./pages/NotFound";
+import ProfileEdit from "./pages/ProfileEdit";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,7 @@ const App = () => (
             <Route path="/settings" element={<Settings />} />
             <Route path="/client-portal/*" element={<ClientPortal />} />
             <Route path="/client-login" element={<ClientLogin />} />
+            <Route path="/profile-edit" element={<ProfileEdit />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

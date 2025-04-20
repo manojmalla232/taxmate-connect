@@ -1,8 +1,7 @@
-
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FileText, CheckCircle, AlertCircle, Clock, Search, Calendar } from 'lucide-react';
-import { TaxReturn, getTaxReturns } from '@/services/taxReturnService';
+import { TaxReturn } from '@/services/taxReturnService';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { 
@@ -14,35 +13,17 @@ import {
 } from '@/components/ui/select';
 
 interface TaxReturnsListProps {
-  onSelectTaxReturn: (id: number) => void;
-  selectedId: number | null;
+  onSelectTaxReturn: (id: string) => void;
+  selectedId: string | null;
+  taxReturns: TaxReturn[];
 }
 
-const TaxReturnsList: React.FC<TaxReturnsListProps> = ({ onSelectTaxReturn, selectedId }) => {
-  const [taxReturns, setTaxReturns] = useState<TaxReturn[]>([]);
-  const [filteredReturns, setFilteredReturns] = useState<TaxReturn[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+const TaxReturnsList: React.FC<TaxReturnsListProps> = ({ onSelectTaxReturn, selectedId, taxReturns }) => {
+  const [filteredReturns, setFilteredReturns] = useState<TaxReturn[]>(taxReturns);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
   useEffect(() => {
-    const fetchTaxReturns = async () => {
-      try {
-        const data = await getTaxReturns();
-        setTaxReturns(data);
-        setFilteredReturns(data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Error fetching tax returns:', error);
-        setIsLoading(false);
-      }
-    };
-
-    fetchTaxReturns();
-  }, []);
-
-  useEffect(() => {
-    // Apply filters whenever search query or status filter changes
     let results = taxReturns;
     
     // Apply status filter
@@ -92,19 +73,6 @@ const TaxReturnsList: React.FC<TaxReturnsListProps> = ({ onSelectTaxReturn, sele
         return 'bg-red-50 text-red-700 border-red-200';
     }
   };
-
-  if (isLoading) {
-    return (
-      <div className="bg-white rounded-xl shadow-card p-8 text-center">
-        <div className="animate-pulse">
-          <div className="h-6 bg-gray-200 rounded w-3/4 mx-auto mb-4"></div>
-          <div className="h-20 bg-gray-100 rounded mb-4"></div>
-          <div className="h-20 bg-gray-100 rounded mb-4"></div>
-          <div className="h-20 bg-gray-100 rounded"></div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="bg-white rounded-xl shadow-card overflow-hidden">

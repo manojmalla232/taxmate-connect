@@ -1,14 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle, Clock, AlertCircle, Calendar } from 'lucide-react';
+import { getTaxReturns } from '@/services/taxReturnService';
 
 interface ClientStatsProps {
-  progress: number;
-  dueDate: string;
-  status: string;
+  userId: string;
 }
 
-const ClientStats: React.FC<ClientStatsProps> = ({ progress, dueDate, status }) => {
+const ClientStats: React.FC<ClientStatsProps> = ({ userId }) => {
+  const [progress, setProgress] = useState(0);
+  const [dueDate, setDueDate] = useState('N/A');
+  const [status, setStatus] = useState('N/A');
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const taxReturns = await getTaxReturns(userId);
+        if (taxReturns && taxReturns.length > 0) {
+          // Pick the most recent tax return
+          const latest = taxReturns[0];
+          setProgress(latest.progress ?? 0);
+          setDueDate(latest.due_date ?? 'N/A');
+          setStatus(latest.status ?? 'N/A');
+        } else {
+          setProgress(0);
+          setDueDate('N/A');
+          setStatus('N/A');
+        }
+      } catch {
+        setProgress(0);
+        setDueDate('N/A');
+        setStatus('N/A');
+      }
+    };
+    fetchStats();
+  }, [userId]);
+
   const stats = [
     {
       title: 'Progress',

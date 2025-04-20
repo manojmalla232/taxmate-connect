@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { User, Lock, Mail } from 'lucide-react';
@@ -8,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import AnimatedLogo from '@/components/ui/AnimatedLogo';
 import PageTransition from '@/components/shared/PageTransition';
+import { supabase } from '@/lib/supabaseClient';
 
 const ClientLogin: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -19,25 +19,22 @@ const ClientLogin: React.FC = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
-    // In a real app, this would authenticate with a backend
-    // For demo purposes, we'll use a timeout to simulate API call
-    setTimeout(() => {
-      if (email === 'demo@example.com' && password === 'password') {
-        toast({
-          title: "Logged in successfully",
-          description: "Welcome to your tax portal"
-        });
-        navigate('/client-portal');
-      } else {
-        toast({
-          title: "Login failed",
-          description: "Invalid email or password. Try demo@example.com / password",
-          variant: "destructive"
-        });
-      }
-      setIsLoading(false);
-    }, 1000);
+    // Supabase Auth
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (!error) {
+      toast({
+        title: 'Logged in successfully',
+        description: 'Welcome to your tax portal',
+      });
+      navigate('/client-portal');
+    } else {
+      toast({
+        title: 'Login failed',
+        description: error.message,
+        variant: 'destructive',
+      });
+    }
+    setIsLoading(false);
   };
 
   return (
@@ -50,7 +47,6 @@ const ClientLogin: React.FC = () => {
           <h1 className="text-2xl font-semibold text-gray-900">TaxMate Client Portal</h1>
           <p className="text-gray-500 mt-2">Log in to manage your tax returns</p>
         </div>
-        
         <motion.div 
           className="w-full max-w-md bg-white rounded-xl shadow-card p-8"
           initial={{ opacity: 0, y: 20 }}
@@ -75,7 +71,6 @@ const ClientLogin: React.FC = () => {
                 />
               </div>
             </div>
-            
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <label htmlFor="password" className="text-sm font-medium text-gray-700">Password</label>
@@ -96,29 +91,21 @@ const ClientLogin: React.FC = () => {
                 />
               </div>
             </div>
-            
-            <Button 
-              type="submit" 
-              className="w-full bg-blue-accent hover:bg-blue-accent/90"
-              disabled={isLoading}
-            >
-              {isLoading ? "Logging in..." : "Login to Your Account"}
+            <Button type="submit" className="w-full bg-blue-accent hover:bg-blue-accent/90" disabled={isLoading}>
+              {isLoading ? 'Logging in...' : 'Login to Your Account'}
             </Button>
           </form>
-          
           <div className="mt-6 text-center text-sm">
             <p className="text-gray-600">
               Don't have an account? Contact your tax agent to get access.
             </p>
           </div>
-          
           <div className="mt-8 pt-6 border-t border-gray-200">
             <p className="text-sm text-center text-gray-500">
               For agency login, <Link to="/login" className="text-blue-accent hover:underline">click here</Link>
             </p>
           </div>
         </motion.div>
-        
         <div className="mt-8 text-center text-sm text-gray-500">
           <p>Demo credentials: demo@example.com / password</p>
         </div>

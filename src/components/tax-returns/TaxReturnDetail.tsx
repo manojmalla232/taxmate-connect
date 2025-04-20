@@ -8,7 +8,7 @@ import { TaxReturn, getTaxReturnById, updateTaxReturn, uploadDocument } from '@/
 import { Skeleton } from '@/components/ui/skeleton';
 
 interface TaxReturnDetailProps {
-  taxReturnId: number;
+  taxReturnId: string;
 }
 
 const TaxReturnDetail: React.FC<TaxReturnDetailProps> = ({ taxReturnId }) => {

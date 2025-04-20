@@ -6,87 +6,58 @@ import Sidebar from '@/components/layout/Sidebar';
 import PageTransition from '@/components/shared/PageTransition';
 import TaxReturnsList from '@/components/tax-returns/TaxReturnsList';
 import TaxReturnDetail from '@/components/tax-returns/TaxReturnDetail';
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogDescription, 
-  DialogHeader, 
-  DialogTitle, 
-  DialogTrigger 
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
-import { TaxReturn, createTaxReturn } from '@/services/taxReturnService';
+import { getTaxReturns, createTaxReturn, updateTaxReturn, getTaxReturnById, uploadDocument } from '@/services/taxReturnService';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation } from 'react-router-dom';
 import PortalHeader from '@/components/layout/PortalHeader';
+import { supabase } from '@/services/taxReturnService';
 
 const TaxReturns: React.FC = () => {
   const location = useLocation();
   const initialSelectedId = location.state?.selectedId || null;
-  const [selectedTaxReturn, setSelectedTaxReturn] = useState<number | null>(initialSelectedId);
+  const [selectedTaxReturn, setSelectedTaxReturn] = useState<string | null>(initialSelectedId);
   const [showNewTaxReturnDialog, setShowNewTaxReturnDialog] = useState(false);
   const { toast } = useToast();
+  const [userId, setUserId] = useState<string | null>(null);
 
-  const { refetch } = useQuery({
-    queryKey: ['taxReturns'],
-    queryFn: () => [], // This is just a placeholder since we're using mock data
-    enabled: false, // Disable auto-fetching since we're using mock data
+  // Fetch current user id from Supabase auth
+  useEffect(() => {
+    (async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      setUserId(user?.id || null);
+    })();
+  }, []);
+
+  // Fetch tax returns for the current user
+  const { data: taxReturns = [], refetch, isLoading } = useQuery({
+    queryKey: ['taxReturns', userId],
+    queryFn: () => userId ? getTaxReturns(userId) : Promise.resolve([]),
+    enabled: !!userId,
   });
 
   useEffect(() => {
     if (location.state?.selectedId) {
       setSelectedTaxReturn(location.state.selectedId);
-      // Clear the state to avoid issues with refreshing
       window.history.replaceState({}, document.title);
     }
   }, [location.state]);
 
-  const handleCreateNewTaxReturn = () => {
-    // In a real app, this would create a new tax return with form data
-    // For demo purposes, we'll just create a simple return and close the dialog
-    
-    const newTaxReturn: Omit<TaxReturn, 'id'> = {
-      clientId: 106,
-      clientName: 'New Client',
-      taxYear: '2023-2024',
-      status: 'pending',
-      dueDate: '2024-10-31',
-      totalIncome: 0,
-      totalDeductions: 0,
-      taxPayable: 0,
-      refundAmount: 0,
-      documents: [],
-      timeline: [
-        {
-          date: new Date().toISOString().split('T')[0],
-          action: 'Tax return created',
-          user: 'Current User'
-        }
-      ]
-    };
-    
-    createTaxReturn(newTaxReturn)
-      .then(response => {
-        toast({
-          title: "Success",
-          description: "New tax return created successfully"
-        });
-        setShowNewTaxReturnDialog(false);
-        refetch(); // Refresh the tax returns list
-        // In a real app, we would update the list and select the new return
-      })
-      .catch(error => {
-        toast({
-          title: "Error",
-          description: "Failed to create new tax return",
-          variant: "destructive"
-        });
-      });
+  const handleCreateNewTaxReturn = async (payload: any) => {
+    try {
+      await createTaxReturn(payload);
+      toast({ title: 'Success', description: 'New tax return created successfully' });
+      setShowNewTaxReturnDialog(false);
+      refetch();
+    } catch (error: any) {
+      toast({ title: 'Error', description: error.message, variant: 'destructive' });
+    }
   };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      <PortalHeader type="agent" profileName="John Agent" />
+      <PortalHeader type="agent" profileName="Agent" />
       <div className="flex flex-1">
         <Sidebar />
         <div className="flex-1 pb-20 md:pb-0 md:ml-16 lg:ml-64 px-4 md:px-6">
@@ -97,11 +68,10 @@ const TaxReturns: React.FC = () => {
                   <h1 className="text-lg xs:text-xl sm:text-2xl font-semibold text-gray-900">Tax Returns</h1>
                   <p className="text-xs xs:text-sm sm:text-base text-gray-500 mt-0.5 xs:mt-1">Manage client tax returns and submissions.</p>
                 </div>
-                
                 <div className="w-full md:w-auto mt-1 md:mt-0">
                   <Dialog open={showNewTaxReturnDialog} onOpenChange={setShowNewTaxReturnDialog}>
                     <DialogTrigger asChild>
-                      <Button className="bg-blue-accent hover:bg-blue-accent/90 w-full md:w-auto text-xs h-9 xs:h-10 px-3 xs:px-4">
+                      <Button className="bg-blue-accent hover:bg-blue-accent/90 w-full md:w-auto text-xs h-9 xs:h-10">
                         <Plus size={14} className="mr-1 xs:mr-1.5" />
                         <span>New Tax Return</span>
                       </Button>
@@ -113,14 +83,12 @@ const TaxReturns: React.FC = () => {
                           Start a new tax return for a client. This will create a blank return that you can fill in.
                         </DialogDescription>
                       </DialogHeader>
-                      
                       <div className="py-3 xs:py-4">
                         {/* In a real app, we would have a form here to collect client info */}
                         <p className="text-gray-500 mb-3 xs:mb-4 text-xs xs:text-sm">
                           For demo purposes, this will create a tax return for a new client.
                         </p>
                       </div>
-                      
                       <div className="flex flex-col xs:flex-row xs:justify-end space-y-2 xs:space-y-0 xs:space-x-2">
                         <Button 
                           variant="outline" 
@@ -131,7 +99,25 @@ const TaxReturns: React.FC = () => {
                         </Button>
                         <Button 
                           className="bg-blue-accent hover:bg-blue-accent/90 w-full xs:w-auto text-xs h-9 xs:h-10"
-                          onClick={handleCreateNewTaxReturn}
+                          onClick={() => handleCreateNewTaxReturn({
+                            clientId: 106,
+                            clientName: 'New Client',
+                            taxYear: '2023-2024',
+                            status: 'pending',
+                            dueDate: '2024-10-31',
+                            totalIncome: 0,
+                            totalDeductions: 0,
+                            taxPayable: 0,
+                            refundAmount: 0,
+                            documents: [],
+                            timeline: [
+                              {
+                                date: new Date().toISOString().split('T')[0],
+                                action: 'Tax return created',
+                                user: 'Current User'
+                              }
+                            ]
+                          })}
                         >
                           Create Tax Return
                         </Button>
@@ -140,14 +126,12 @@ const TaxReturns: React.FC = () => {
                   </Dialog>
                 </div>
               </div>
-              
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 xs:gap-3 sm:gap-4 md:gap-6">
                 <div className="lg:col-span-1 order-2 lg:order-1">
                   <div className="lg:sticky lg:top-6">
-                    <TaxReturnsList onSelectTaxReturn={setSelectedTaxReturn} selectedId={selectedTaxReturn} />
+                    <TaxReturnsList onSelectTaxReturn={setSelectedTaxReturn} selectedId={selectedTaxReturn} taxReturns={taxReturns} />
                   </div>
                 </div>
-                
                 <div className="lg:col-span-2 order-1 lg:order-2 mb-3 xs:mb-4 sm:mb-6 lg:mb-0">
                   {selectedTaxReturn ? (
                     <TaxReturnDetail taxReturnId={selectedTaxReturn} />
