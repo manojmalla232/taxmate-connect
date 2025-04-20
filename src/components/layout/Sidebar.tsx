@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -17,30 +16,49 @@ import {
 import AnimatedLogo from '../ui/AnimatedLogo';
 import { useIsMobile } from '@/hooks/use-mobile';
 
-interface SidebarProps {
-  className?: string;
+interface MenuItem {
+  icon: React.ElementType;
+  label: string;
+  path: string;
+  tab?: string;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
+interface SidebarProps {
+  className?: string;
+  primaryMenuItems?: MenuItem[];
+  secondaryMenuItems?: MenuItem[];
+  activeTab?: string;
+  setActiveTab?: (tab: string) => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({
+  className = '',
+  primaryMenuItems,
+  secondaryMenuItems,
+  activeTab,
+  setActiveTab
+}) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const location = useLocation();
   const isMobile = useIsMobile();
   
-  // Separate primary and secondary menu items
-  const primaryMenuItems = [
+  // Default Agent Dashboard menu items
+  const defaultPrimaryMenuItems = [
     { icon: Home, label: 'Dashboard', path: '/dashboard' },
     { icon: Users, label: 'Clients', path: '/clients' },
     { icon: MessageSquare, label: 'Messages', path: '/messages' },
     { icon: FileText, label: 'Tax Returns', path: '/tax-returns' }
   ];
-  
-  const secondaryMenuItems = [
+  const defaultSecondaryMenuItems = [
     { icon: BarChart2, label: 'Reports', path: '/reports' },
     { icon: Calendar, label: 'Calendar', path: '/calendar' },
     { icon: Settings, label: 'Settings', path: '/settings' }
   ];
+  const pMenu = primaryMenuItems || defaultPrimaryMenuItems;
+  const sMenu = secondaryMenuItems || defaultSecondaryMenuItems;
   
-  const isActive = (path: string) => {
+  const isActive = (path: string, tab?: string) => {
+    if (activeTab && setActiveTab && tab) return activeTab === tab;
     return location.pathname === path;
   };
   
@@ -69,16 +87,16 @@ const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex flex-col">
-                {secondaryMenuItems.map((item) => (
+                {sMenu.map((item) => (
                   <Link
                     key={item.path}
                     to={item.path}
                     className={`flex items-center space-x-3 px-4 py-3 rounded-md ${
-                      isActive(item.path)
+                      isActive(item.path, item.tab)
                         ? 'bg-blue-light text-blue-accent font-medium'
                         : 'text-gray-700 hover:text-blue-accent hover:bg-gray-50'
                     }`}
-                    onClick={() => setShowMoreMenu(false)}
+                    onClick={() => { setShowMoreMenu(false); if (item.tab && setActiveTab) setActiveTab(item.tab); }}
                   >
                     <item.icon size={20} />
                     <span>{item.label}</span>
@@ -92,15 +110,16 @@ const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
         {/* Bottom navigation */}
         <div className={`fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-30 ${className}`}>
           <div className="flex justify-around items-center h-16">
-            {primaryMenuItems.map((item) => (
+            {pMenu.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
                 className={`flex flex-col items-center justify-center py-2 px-3 ${
-                  isActive(item.path)
+                  isActive(item.path, item.tab)
                     ? 'text-blue-accent'
                     : 'text-gray-600 hover:text-blue-accent'
                 }`}
+                onClick={() => { if (item.tab && setActiveTab) setActiveTab(item.tab); }}
               >
                 <item.icon size={20} />
                 <span className="text-xs mt-1">{item.label}</span>
@@ -110,7 +129,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
             {/* More menu button */}
             <button
               className={`flex flex-col items-center justify-center py-2 px-3 ${
-                secondaryMenuItems.some(item => isActive(item.path))
+                sMenu.some(item => isActive(item.path, item.tab))
                   ? 'text-blue-accent'
                   : 'text-gray-600 hover:text-blue-accent'
               }`}
@@ -158,15 +177,16 @@ const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
         {/* Primary menu items */}
         <div className="mb-6">
           <ul className="space-y-1">
-            {primaryMenuItems.map((item) => (
+            {pMenu.map((item) => (
               <li key={item.path}>
                 <Link
                   to={item.path}
                   className={`flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-all ${
-                    isActive(item.path)
+                    isActive(item.path, item.tab)
                       ? 'bg-blue-light text-blue-accent font-medium'
                       : 'text-gray-700 hover:text-blue-accent hover:bg-gray-50'
                   }`}
+                  onClick={() => { if (item.tab && setActiveTab) setActiveTab(item.tab); }}
                 >
                   <item.icon size={20} />
                   <motion.span
@@ -198,15 +218,16 @@ const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
             More
           </motion.div>
           <ul className="space-y-1">
-            {secondaryMenuItems.map((item) => (
+            {sMenu.map((item) => (
               <li key={item.path}>
                 <Link
                   to={item.path}
                   className={`flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-all ${
-                    isActive(item.path)
+                    isActive(item.path, item.tab)
                       ? 'bg-blue-light text-blue-accent font-medium'
                       : 'text-gray-700 hover:text-blue-accent hover:bg-gray-50'
                   }`}
+                  onClick={() => { if (item.tab && setActiveTab) setActiveTab(item.tab); }}
                 >
                   <item.icon size={20} />
                   <motion.span

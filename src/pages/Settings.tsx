@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
@@ -18,6 +17,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
+import PortalHeader from '@/components/layout/PortalHeader';
 
 const Settings: React.FC = () => {
   const [activeTab, setActiveTab] = useState('profile');
@@ -244,43 +244,45 @@ const Settings: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
-      <Sidebar />
-      
-      <div className="flex-1 pb-20 md:pb-0 md:ml-16 lg:ml-64 px-4 md:px-6">
-        <PageTransition>
-          <main className="page-container py-4 sm:py-6 md:py-10 max-w-7xl mx-auto">
-            <div className="mb-5 sm:mb-8">
-              <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">Settings</h1>
-              <p className="text-gray-500 mt-1 text-sm sm:text-base">Manage your account preferences and settings.</p>
-            </div>
-            
-            <div className="bg-white rounded-xl shadow-card overflow-hidden">
-              <div className="flex overflow-x-auto border-b border-gray-100 pb-1 scrollbar-none">
-                {tabs.map((tab) => (
-                  <button
-                    key={tab.id}
-                    className={`flex items-center px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm font-medium transition-colors ${
-                      activeTab === tab.id 
-                        ? 'text-blue-accent border-b-2 border-blue-accent' 
-                        : 'text-gray-500 hover:text-gray-700'
-                    }`}
-                    onClick={() => setActiveTab(tab.id)}
-                  >
-                    <span className="mr-1.5 sm:mr-2">{tab.icon}</span>
-                    <span>{tab.label}</span>
-                  </button>
-                ))}
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      <PortalHeader type="agent" profileName="John Agent" />
+      <div className="flex flex-1">
+        <Sidebar />
+        <div className="flex-1 pb-20 md:pb-0 md:ml-16 lg:ml-64 px-4 md:px-6">
+          <PageTransition>
+            <main className="page-container py-4 sm:py-6 md:py-10 max-w-7xl mx-auto">
+              <div className="mb-5 sm:mb-8">
+                <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">Settings</h1>
+                <p className="text-gray-500 mt-1 text-sm sm:text-base">Manage your account preferences and settings.</p>
               </div>
               
-              <div className="p-3 xs:p-4 sm:p-5 md:p-6">
-                {activeTab === 'profile' && renderProfileSettings()}
-                {activeTab === 'notifications' && renderNotificationSettings()}
-                {activeTab === 'security' && renderSecuritySettings()}
+              <div className="bg-white rounded-xl shadow-card overflow-hidden">
+                <div className="flex overflow-x-auto border-b border-gray-100 pb-1 scrollbar-none">
+                  {tabs.map((tab) => (
+                    <button
+                      key={tab.id}
+                      className={`flex items-center px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm font-medium transition-colors ${
+                        activeTab === tab.id 
+                          ? 'text-blue-accent border-b-2 border-blue-accent' 
+                          : 'text-gray-500 hover:text-gray-700'
+                      }`}
+                      onClick={() => setActiveTab(tab.id)}
+                    >
+                      <span className="mr-1.5 sm:mr-2">{tab.icon}</span>
+                      <span>{tab.label}</span>
+                    </button>
+                  ))}
+                </div>
+                
+                <div className="p-3 xs:p-4 sm:p-5 md:p-6">
+                  {activeTab === 'profile' && renderProfileSettings()}
+                  {activeTab === 'notifications' && renderNotificationSettings()}
+                  {activeTab === 'security' && renderSecuritySettings()}
+                </div>
               </div>
-            </div>
-          </main>
-        </PageTransition>
+            </main>
+          </PageTransition>
+        </div>
       </div>
     </div>
   );
